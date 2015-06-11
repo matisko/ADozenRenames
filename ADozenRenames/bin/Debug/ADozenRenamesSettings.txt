@@ -1,0 +1,17 @@
+settings for ADozenRenames
+
+lastdirectory:C:\Users\Owner\Desktop\2015 cottage\jpg
+replacewith:Toronto23
+f1:- Toronto
+f2:- New York
+f3:- Southampton
+f4:Lighthouse diner
+f5:Mike
+f6:Esther
+f7:Mike Chantale
+f8:Ele Don
+f9:Ty Chantale Esther
+f10:Don
+f11:trees
+
+end

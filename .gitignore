@@ -1,3 +1,10 @@
+# build files and directories
+obj/
+old/
+*.pdb
+*.vshost*
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="A Dozen Renames - batch file renaming" 
         Icon="ADozenRenamesIcon.ico"
-        Height="700" Width="850"  
+        Height="781" Width="850"  
         Drop="FileList_Drop" AllowDrop="True" 
         ResizeMode="CanResizeWithGrip" Closing="ADozenRenames_Closing" >
 
@@ -29,7 +29,7 @@
                     Height="40" VerticalAlignment="top" Width="216" Margin="15,5,15,15" 
                     ToolTip="Ctrl + Z" IsEnabled="False" FontSize="14" Click="ButtonUndoLastRename_Click" />
             
-            <CheckBox Content="clear files after rename" x:Name="clearFileList" Margin="9,9,9,0" FontSize="14" Width="258"/>
+            <CheckBox Content="clear files after rename" x:Name="clearFileList" Margin="9,9,9,0" FontSize="14" Width="258" Background="#FFEEEEEE"/>
             
             
             <Grid x:Name="controlGrid"  
@@ -116,9 +116,12 @@
                      TextWrapping="NoWrap" Text="replace this text"
                      ToolTip="Ctrl + F Key replaces this text with the appropriate new text" GotFocus="SelectAllTextBox" FontSize="16"/>
             
-            <ScrollViewer x:Name="statusScroll"  VerticalScrollBarVisibility="Auto"  Height="77"  Width="auto"  HorizontalScrollBarVisibility="Disabled" Grid.Column="0" Margin="12,8,12,0" BorderBrush="Black" BorderThickness="9">
-                <TextBlock x:Name="statusText" Text="0 files" HorizontalAlignment="Stretch" TextWrapping="Wrap"   Foreground="#FF474646"  Background="#FF748A69" />
-            </ScrollViewer>
+
+            <Border BorderThickness="2" BorderBrush="Gray"  Margin="10,8,10,0">
+                <ScrollViewer x:Name="statusScroll"  VerticalScrollBarVisibility="Auto"  Height="77"  Width="auto"  HorizontalScrollBarVisibility="Disabled" Grid.Column="0" BorderBrush="Black" BorderThickness="9">
+                    <TextBlock x:Name="statusText" Text="0 files" HorizontalAlignment="Stretch" TextWrapping="Wrap"   Foreground="#FF474646"  Background="#FF799175" />
+                </ScrollViewer>
+            </Border>            
             
             <TextBlock x:Name="authorText" TextWrapping="Wrap" Foreground="#FF474646" Margin="8,18,8,0" Text="by Michael Matisko  2015" />
 

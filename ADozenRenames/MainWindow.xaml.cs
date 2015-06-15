@@ -242,15 +242,6 @@ namespace ADozenRenames
 
 
 
-        private     void                Status( string statusMessage )
-        {
-            statusText.Text  +=  "\r" + statusMessage;
-
-            statusScroll.ScrollToBottom();
-        }
-
-
-
         private     List<string>        FolderDrop( string theFolder )
         {
             List<string>  theseFiles    =  Directory.GetFiles( theFolder ).ToList();
@@ -260,6 +251,15 @@ namespace ADozenRenames
             foreach (string thisFile  in theseFolders)  { theseFiles.AddRange( FolderDrop( thisFile )); } //  ooh!  recursive call!
 
             return theseFiles;
+        }
+
+
+
+        private     void                Status( string statusMessage )
+        {
+            statusText.Text  +=  "\r" + statusMessage;
+
+            statusScroll.ScrollToBottom();
         }
 
 
@@ -297,35 +297,49 @@ namespace ADozenRenames
 
         protected   override  void      OnPreviewKeyDown( KeyEventArgs args )
         {
-            bool replace  =  false;
+            bool CTRL  =  false;
 
-            if( Keyboard.IsKeyDown( Key.LeftCtrl) || Keyboard.IsKeyDown( Key.RightCtrl ) )  { replace = true; }
+            if( Keyboard.IsKeyDown( Key.LeftCtrl) || Keyboard.IsKeyDown( Key.RightCtrl ) )  { CTRL = true; }
         
-            if (args.SystemKey == Key.F10)  { RenameFiles( 10, replace );  return; }  // F10 is handled differently than other function keys.  It is a System Key.  
+            if (args.SystemKey == Key.F10)  { RenameFiles( 10, CTRL );  return; }  // F10 is handled differently than other function keys.  It is a System Key.  
 
-            //case Key.F1:    OpenHelp();   return;
+            //case Key.???:    OpenHelp();   return;
 
 
             switch (args.Key)
             {
-                case  Key.R:    
-                    
-                    if( Keyboard.IsKeyDown( Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl) )  { ButtonSuffixLowercase_Click( null, null ); }
+                case  Key.R:    if( CTRL )  { ButtonSuffixLowercase_Click( null, null ); }  break;
+                case  Key.Z:    if( CTRL )  {  ButtonUndoLastRename_Click( null, null ); }  break;
 
-                    break;
+                case Key.F1 :   RenameFiles(  1, CTRL );   return;     
+                case Key.F2 :   RenameFiles(  2, CTRL );   return;     
+                case Key.F3 :   RenameFiles(  3, CTRL );   return;     
+                case Key.F4 :   RenameFiles(  4, CTRL );   return;     
+                case Key.F5 :   RenameFiles(  5, CTRL );   return;     
+                case Key.F6 :   RenameFiles(  6, CTRL );   return;     
+                case Key.F7 :   RenameFiles(  7, CTRL );   return;     
+                case Key.F8 :   RenameFiles(  8, CTRL );   return;     
+                case Key.F9 :   RenameFiles(  9, CTRL );   return;     
+                case Key.F10:   RenameFiles( 11, CTRL );   return;     // handled above
+                case Key.F11:   RenameFiles( 11, CTRL );   return;     
+                case Key.F12:   RenameFiles( 12, CTRL );   return;     
+            }
+            
 
-                case Key.F1 :   RenameFiles(  1, replace );   return;     
-                case Key.F2 :   RenameFiles(  2, replace );   return;     
-                case Key.F3 :   RenameFiles(  3, replace );   return;     
-                case Key.F4 :   RenameFiles(  4, replace );   return;     
-                case Key.F5 :   RenameFiles(  5, replace );   return;     
-                case Key.F6 :   RenameFiles(  6, replace );   return;     
-                case Key.F7 :   RenameFiles(  7, replace );   return;     
-                case Key.F8 :   RenameFiles(  8, replace );   return;     
-                case Key.F9 :   RenameFiles(  9, replace );   return;     
-                case Key.F10:   RenameFiles( 11, replace );   return;     // handled above
-                case Key.F11:   RenameFiles( 11, replace );   return;     
-                case Key.F12:   RenameFiles( 12, replace );   return;     
+            if (args.Key == Key.Return)  // rename files when Enter is pressed, using the active textbox
+            {
+                if ( text1.IsFocused)  RenameFiles(  1, CTRL ); 
+                if ( text2.IsFocused)  RenameFiles(  2, CTRL ); 
+                if ( text3.IsFocused)  RenameFiles(  3, CTRL ); 
+                if ( text4.IsFocused)  RenameFiles(  4, CTRL ); 
+                if ( text5.IsFocused)  RenameFiles(  5, CTRL ); 
+                if ( text6.IsFocused)  RenameFiles(  6, CTRL ); 
+                if ( text7.IsFocused)  RenameFiles(  7, CTRL ); 
+                if ( text8.IsFocused)  RenameFiles(  8, CTRL ); 
+                if ( text9.IsFocused)  RenameFiles(  9, CTRL ); 
+                if (text10.IsFocused)  RenameFiles( 10, CTRL ); 
+                if (text11.IsFocused)  RenameFiles( 11, CTRL ); 
+                if (text12.IsFocused)  RenameFiles( 12, CTRL ); 
             }
 
             base.OnKeyDown( args );
@@ -494,7 +508,7 @@ namespace ADozenRenames
             }
             catch (Exception exc)
             {
-                string errorMsg  =  "Oops.    \r  \rTrying to rename  \r  \r  " + Path.GetFileNameWithoutExtension( thisFile ) + "  \r  \rto  \r  \r  " + newName + "  \r \rcaused an error.   \r \rStopping.   \r \r" + exc.Message;
+                string errorMsg  =  "Oops. \r\rTrying to rename  \r\r  " + Path.GetFileNameWithoutExtension( thisFile ) + "  \r\rto  \r\r  " + newName + "  \r\rcaused an error.  \r\rStopping.  \r\r" + exc.Message;
 
                 MessageBox.Show( errorMsg );
 
@@ -533,7 +547,7 @@ namespace ADozenRenames
         {
             int  count  =  previousNames.Count;
             
-            if (count < 2)  throw new Exception("can't undo last rename unless with less than 2 items in the previousNames list.");
+            if (count < 2)  return;   // can't undo last rename unless with less than 2 items in the previousNames list
 
             previousNames.RemoveAt( 0 );
 

@@ -11,9 +11,7 @@ Features
 
 Supported platforms
 -------------------
-* Windows Vista
-* Windows 7
-* Windows 8
+* Windows Vista, 7, 8
 
 Requirements
 ------------
@@ -21,16 +19,19 @@ Requirements
 
 Screenshot
 ----------
-![Screenshot](/ADozenRenames/ADozenRenames-screenshot.jpg)
+![Screenshot](/ADozenRenames/ADozenRenames-screenshot.JPG)
 
+
+New features in version 1.1
+---------------------------
+* undo renames (in series, since the current file list was set)
+* info display (# of files listed, # changed by replace...)
 
 Possible future features
 ------------------------
-* undo renames (in series, since the current file list was set)
 * rename only selected files in the list
 * invert selected files
 * allow text to insert at any position
-* info display (# of files listed, # changed by replace...)
 * show filename extensions in separate column
 * preview before renaming
 * selected filename copied to a field just below Replace, highlighting any part of that text causes it to appear in the Replace field

@@ -351,13 +351,11 @@ namespace ADozenRenames
         {
             if (theFiles == null  ||  theFiles.Count == 0)  return;
 
-            int  listCounter  =  -1;
-
             int  changeCounter  =  0;
 
-            foreach (var thisFile  in theFiles)
+            for ( int listCounter = 0;   listCounter < theFiles.Count;   listCounter++ )
             {
-                listCounter++;
+                string thisFile  =  theFiles[ listCounter ];
 
                 string suffix  =  Path.GetExtension    (thisFile);
                 string thisDir =  Path.GetDirectoryName(thisFile);
@@ -376,6 +374,9 @@ namespace ADozenRenames
 
                 changeCounter++;
             }
+
+            if (changeCounter > 0)  addNamesToUndoList();
+
 
             if (clearFileList.IsChecked == true)  ClearFileList();
 
@@ -420,7 +421,7 @@ namespace ADozenRenames
 
             if (buttonIndex < 1  ||  buttonIndex > 12)  throw new Exception("the button value must be between 1 and 12.  Was sent " + buttonIndex.ToString() + " instead.");
 
-            if (newText[buttonIndex].Text == "")  return;  // no text to insert
+            if (newText[buttonIndex].Text == ""  &&  !replace)  return;  // no text to insert
 
             if (theFiles == null  ||  theFiles.Count == 0)  return;   // no files to rename
 
